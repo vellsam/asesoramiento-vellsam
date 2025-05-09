@@ -1,0 +1,32 @@
+{
+  "expo": {
+    "name": "Asistente Vellsam",
+    "slug": "asistente-vellsam",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icono-vellsam.png",
+    "splash": {
+      "image": "./assets/vellsaminicio.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icono-vellsam.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/icono-vellsam.png"
+    }
+  }
+}

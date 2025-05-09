@@ -1,0 +1,940 @@
+[
+    {
+      "country": "España",
+      "regions": [
+        "Álava", "Albacete", "Alicante", "Almería", "Asturias", "Ávila", "Badajoz",
+        "Barcelona", "Burgos", "Cáceres", "Cádiz", "Cantabria", "Castellón", "Ciudad Real",
+        "Córdoba", "Cuenca", "Gerona", "Granada", "Guadalajara", "Guipúzcoa", "Huelva",
+        "Huesca", "Islas Baleares", "Jaén", "La Coruña", "La Rioja", "Las Palmas", "León",
+        "Lérida", "Lugo", "Madrid", "Málaga", "Murcia", "Navarra", "Orense", "Palencia",
+        "Pontevedra", "Salamanca", "Santa Cruz de Tenerife", "Segovia", "Sevilla", "Soria",
+        "Tarragona", "Teruel", "Toledo", "Valencia", "Valladolid", "Vizcaya", "Zamora",
+        "Zaragoza"
+      ]
+    },
+    {
+      "country": "Francia",
+      "regions": [
+        "Auvernia-Ródano-Alpes", "Borgoña-Franco Condado", "Bretaña", "Centro-Valle de Loira",
+        "Córcega", "Gran Este", "Alta Francia", "Isla de Francia", "Normandía",
+        "Nueva Aquitania", "Occitania", "Países del Loira", "Provenza-Alpes-Costa Azul"
+      ]
+    },
+    {
+      "country": "Italia",
+      "regions": [
+        "Abruzos", "Basilicata", "Calabria", "Campania", "Emilia-Romaña", "Friul-Venecia Julia",
+        "Lacio", "Liguria", "Lombardía", "Marcas", "Molise", "Piamonte", "Apulia", "Cerdeña",
+        "Sicilia", "Toscana", "Trentino-Alto Adigio", "Umbría", "Valle de Aosta", "Véneto"
+      ]
+    },
+    {
+      "country": "Suiza",
+      "regions": [
+        "Aargau", "Appenzell Rodas Interiores", "Appenzell Rodas Exteriores", "Argovia",
+        "Basilea-Campiña", "Basilea-Ciudad", "Berna", "Friburgo", "Ginebra", "Glaris",
+        "Graubünden", "Lucerna", "Neuchâtel", "Nidvaldo", "Obvaldo", "San Gall", "Schaffusa",
+        "Soleura", "Turgovia", "Vaud", "Valais", "Zúrich"
+      ]
+    },
+    {
+      "country": "Bélgica",
+      "regions": [
+        "Brabante Flamenco", "Brabante Valón", "Bruselas-Capital", "Flandes Oriental",
+        "Flandes Occidental", "Henao", "Lieja", "Luxemburgo", "Namur"
+      ]
+    },
+    {
+      "country": "Países Bajos",
+      "regions": [
+        "Drente", "Flevolanda", "Frisia", "Groninga", "Gelderland", "Holanda Septentrional",
+        "Holanda Meridional", "Brabante Septentrional", "Limburgo", "Overijssel", "Utrecht",
+        "Zeeland"
+      ]
+    },
+    {
+      "country": "Austria",
+      "regions": [
+        "Alta Austria", "Baja Austria", "Burgenland", "Carintia", "Estiria", "Salzburgo",
+        "Tirol", "Viena", "Vorarlberg"
+      ]
+    },
+    {
+      "country": "Dinamarca",
+      "regions": [
+        "Jutlandia Central", "Jutlandia Meridional", "Jutlandia Septentrional", "Selandia",
+        "Dinamarca Meridional", "Dinamarca Septentrional"
+      ]
+    },  
+    {
+      "country": "Noruega",
+      "regions": [
+        "Akershus", "Aust-Agder", "Buskerud", "Finnmark", "Hedmark", "Hedmark", "Møre y Romsdal",
+        "Nordland", "Oppland", "Oslo", "Rogaland", "Sogn y Fjordane", "Telemark", "Troms",
+        "Vestfold", "Akershus"
+      ]
+    },
+    {
+      "country": "Suecia",
+      "regions": [  
+        "Blekinge", "Dalarna", "Gävleborg", "Gotland", "Halland", "Jämtland", "Jonkoping",
+        "Kalmar", "Kronoberg", "Norrbotten", "Skåne", "Södermanland", "Uppsala", "Värmland",
+        "Västerbotten", "Västernorrland", "Västmanland", "Örebro", "Östergötland"
+      ]
+    },
+    {
+      "country": "Finlandia",
+      "regions": [
+        "Alandia", "Kainuu", "Kymenlaakso", "Lapland", "Pirkanmaa", "Pohjois-Karjala",
+        "Pohjois-Pohjanmaa", "Pohjois-Savo", "Satakunta", "Uusimaa", "Varsinais-Suomi"
+      ]
+    },
+    {
+      "country": "Alemania",
+      "regions": [
+        "Baden-Wurtemberg", "Baviera", "Berlín", "Brandeburgo", "Bremen", "Hamburgo", "Hesse",
+        "Mecklemburgo-Pomerania Occidental", "Baja Sajonia", "Renania del Norte-Westfalia",
+        "Renania-Palatinado", "Sarre", "Sajonia", "Sajonia-Anhalt", "Schleswig-Holstein",
+        "Turingia"
+      ]
+    },
+    {
+      "country":"Grecia",
+      "regions":[
+        "Ática", "Epiro", "Grecia Central", "Grecia Occidental", "Grecia Septentrional",
+        "Grecia Meridional", "Islas Jónicas", "Islas del Egeo Meridional",
+        "Islas del Egeo Septentrional", "Macedonia Central", "Macedonia Occidental",
+        "Macedonia Oriental y Tracia", "Peloponeso", "Tesalia", "Tirreno-Egeo"
+      ]
+    },
+    {
+      "country":"Montenegro",
+      "regions":[
+        "Alto Zenta", "Bajo Zenta", "Bocca di Cattaro", "Brda", "Cuca", "Dulcigno",
+        "Herceg Novi", "Kolašin", "Nikšić", "Plevlja", "Podgorica", "Risan",
+        "San Giovanni di Medua", "San Tomás de Cuca", "Sutjeska"
+      ]
+    },
+    {
+      "country":"Albania",
+      "regions":[
+        "Berat", "Bulqizë", "Dibër", "Durrës", "Elbasan", "Fier", "Korçë",
+        "Shkodër", "Tiranë", "Vlorë"
+      ]
+    },
+    {
+      "country":"Rumanía",
+      "regions":[
+        "Alba", "Arad", "Arges", "Bacau", "Bihor", "Bistrita-Nasaud", "Botosani",
+        "Braila", "Brasov", "Bucarest", "Buzau", "Calarasi", "Caras-Severin",
+        "Cluj", "Constanta", "Covasna", "Dambovita", "Dolj", "Galati",
+        "Giurgiu", "Gorj", "Harghita", "Hunedoara", "Ialomita", "Iasi",
+        "Ilfov", "Maramures", "Mehedinti", "Mures", "Neamt", "Olt",
+        "Prahova", "Salaj", "Satu Mare", "Sibiu", "Suceava",
+        "Teleorman", "Timis"
+      ]
+    },
+    {
+      "country":"Bulgaria",
+      "regions":[
+        "Blagoevgrad", "Burgas", "Dobrich", "Gabrovo", "Jaskovo", "Kardzhali",
+        "Kyustendil", "Montana", "Pazardzhik", "Pernik", "Pleven", "Plovdiv",
+        "Razgrad", "Ruse", "Shumen", "Silistra", "Sliven", "Smolyan",
+        "Sofía-Ciudad", "Sofía-Provincia", "Stara Zagora", "Targovishte",
+        "Varna", "Veliko Tarnovo", "Vidin", "Vratsa"
+      ]
+    },
+    {
+      "country":"Serbia",
+      "regions":[
+        "Bajina Bašta", "Batočina", "Bečej", "Beograd", "Bela Crkva", "Bojnik",
+        "Bor", "Brus", "Bujanovac", "Čajetina", "Čačak", "Čukarica",
+        "Despotovac", "Dimitrovgrad", "Donji Milanovac", "Gadžin Han",
+        "Gornji Milanovac", "Gornji Stevanovac", "Jagodina", "Kanjiža",
+        "Kladovo", "Kopaonik", "Kragujevac", "Kraljevo", "Kruševac",
+        "Lazarevac", "Leskovac", "Loznica", "Lučani", "Majdanpek",
+        "Mali Zvornik", "Mionica", "Negotin"
+      ]
+    },
+    {
+      "country":"Croacia",
+      "regions":[
+        "Brod-Posavina", "Búmina", "Cámarica", "Cernik", "Čakovec", "Čazma",
+        "Daruvar", "Delnice", "Djakovo", "Donji Miholjac", "Dubrovnik-Neretva",
+        "Gospic", "Karlovac", "Krapina-Zagorje", "Krizevci", "Kutina",
+        "Lika-Senj", "Lipik", "Mali Lošinj", "Marija Bistrica", "Medimurje",
+        "Novi Marof", "Obrovac", "Otočac"
+      ]
+    },
+    {
+      "country":"Hungria",
+      "regions":[
+        "Baranya", "Bács-Kiskun", "Békés", "Borsod-Abaúj-Zemplén", "Budapest",
+        "Csongrád-Csanád", "Fejér", "Győr-Moson-Sopron", "Hajdú-Bihar",
+        "Heves", "Jász-Nagykun-Szolnok", "Komárom-Esztergom", "Nógrád",
+        "Pest", "Somogy", "Szabolcs-Szatmár-Bereg", "Tolna",
+        "Vas", "Veszprém", "Zala"
+      ]
+    },
+    {
+      "country":"Polonia",
+      "regions":[
+        "Baja Silesia", "Cuyavia y Pomerania", "Lublin", "Lubusz", "Masuria-Varmia",
+        "Mazovia", "Pequeña Polonia", "Podlaquia", "Podkarpacia", "Pomerania",
+        "Silesia", "Santa Cruz", "Varmia-Masuria", "Gran Polonia"
+      ]
+    },
+    {
+      "country":"Eslovenia",
+      "regions":[
+        "Alta Carniola", "Baja Carniola", "Básquet", "Carniola", "Prekmurje",
+        "Savinja", "Savinjska", "Zala"
+      ]
+    },
+    {
+      "country":"China",
+      "regions":[
+        "Anhui", "Cantón", "Chongqing", "Fujian", "Gansu", "Guangdong", "Guangxi",
+        "Guizhou", "Hainan", "Hebei", "Heilongjiang", "Henan", "Hubei",
+        "Hunan", "Jiangsu", "Jiangxi", "Jilin", "Liaoning", "Mongolia Interior",
+        "Ningxia", "Qinghai", "Shaanxi", "Shandong", "Shanxi",
+        "Sichuan", "Tíbet", "Xinjiang", "Yunnan"
+      ]
+    },
+    {
+      "country":"Rusia",
+      "regions":[
+        "Altái", "Bashkortostán", "Buriatia", "Chechenia", "Chuvashia", "Daguestán",
+        "Ingusetia", "Kabardia-Balkaria", "Kalmykia", "Karacháyevo-Cherkesia",
+        "Krasnodar", "Mari El", "Mordovia", "Sakha", "Tatarstán", "Tuva"
+      ]
+    },
+    {
+      "country":"Japón",
+      "regions":[
+        "Aichi", "Akita", "Aomori", "Chiba", "Ehime", "Fukui", "Fukuoka",
+        "Fukushima", "Gifu", "Gunma", "Hiroshima", "Hokkaido", "Hyogo",
+        "Ibaraki", "Ishikawa", "Iwate", "Kagawa", "Kagoshima", "Kanagawa",
+        "Kochi", "Kumamoto", "Kyoto", "Miyagi", "Miyazaki", "Nagano",
+        "Nagasaki", "Nara", "Niigata", "Oita", "Okayama"
+      ]
+    },
+    {
+      "country":"Vietnam",
+      "regions":[
+        "An Giang", "Bac Kan", "Bac Lieu", "Bac Ninh", "Ben Tre", "Binh Dinh",
+        "Binh Duong", "Binh Phuoc", "Ca Mau", "Can Tho", "Cao Bang", "Da Nang",
+        "Dak Lak", "Dak Nong", "Dien Bien", "Dong Nai", "Dong Thap",
+        "Gia Lai", "Ha Giang", "Ha Nam", "Ha Tinh", "Hai Duong",
+        "Hai Phong", "Hà Nội", "Hau Giang", "Ho Chi Minh City"
+      ]
+    },
+    {
+      "country":"Kazakistán",
+      "regions":[
+        "Akmola", "Aktobe", "Almaty", "Astana", "Atyrau", "Karaganda", "Kostanay",
+        "Kyzylorda", "Mangystau", "Pavlodar", "Petropavl", "Shymkent",
+        "Turquestán"
+      ]
+    },
+    {
+      "country":"Pakistán",
+      "regions":[
+        "Azad Cachemira", "Gilgit-Baltistán", "Jammu y Cachemira", "Khyber Pakhtunkhwa",
+        "Punyab", "Sind"
+      ]
+    },
+    {
+      "country":"Irán",
+      "regions":[
+        "Alborz", "Ardabil", "Azarbayeján Oriental", "Azarbayeján Occidental",
+        "Bushehr", "Chahar Mahal y Bakhtiari", "Fars", "Gilan", "Golestán",
+        "Hormozgán", "Isfahán", "Kermán", "Kermanshah", "Khorasan del Norte",
+        "Khorasan del Sur", "Lorestan", "Mazandarán", "Qazvin", "Qom",
+        "Semnán", "Teherán", "Yazd"
+      ]
+    },
+    {
+      "country":"Turquía",
+      "regions":[
+        "Adana", "Adiyaman", "Afyonkarahisar", "Aksaray", "Amasya", "Ankara",
+        "Antalya", "Ardahan", "Artvin", "Aydin", "Balikesir", "Bartin",
+        "Batman", "Bayburt", "Bilecik", "Bingöl", "Bitlis", "Bolu",
+        "Burdur", "Bursa", "Çanakkale", "Çankırı", "Corum", "Denizli",
+        "Diyarbakir", "Düzce", "Edirne", "Elazig", "Erzincan", "Erzurum",
+        "Eskisehir", "Gaziantep", "Giresun", "Gümüşhane", "Hakkari",
+        "Hatay", "Igdir", "Isparta", "Istanbul", "Izmir", "Kahramanmaras",
+        "Karabük", "Karaman", "Kars", "Kastamonu", "Kayseri", "Kirikkale",
+        "Kirklareli", "Kirsehir", "Kocaeli", "Konya", "Kutahya", "Malatya"
+      ]
+    },
+    {
+      "country":"Uzbekistán",
+      "regions":[
+        "Andiján", "Bajdar", "Buxoro", "Ferganá", "Jorezm", "Namangan",
+        "Navoiy", "Samarcanda", "Sirdaryo", "Surján", "Tashkent",
+        "Tashkent-Ciudad"
+      ]
+    },
+    {
+      "country":"Kawait",
+      "regions":[
+        "Al Ahmadi", "Al Farwaniyah", "Al Jahra", "Al Kuwait", "Al Asimah",
+        "Hawalli", "Mubarak al-Kabeer"
+      ]
+    },
+    {
+      "country":"Emiratos Árabes Unidos",
+      "regions":[
+        "Abu Dabi", "Ajmán", "Al Ain", "Al Fujayrah", "Al Ras al-Jaima",
+        "Dubái", "Sharja", "Umm al-Qaywayn"
+      ]
+    },
+    {
+      "country":"Arabia Saudita",
+      "regions":[
+        "Al Bahah", "Al Jawf", "Al Madinah", "Al Qasim", "Al Riyad",
+        "Asir", "Baha", "Hail", "Jazán", "Meca", "Najran",
+        "Qatif", "Riyad", "Tabuk"
+      ]
+    },
+    {
+      "country":"Moldavia",
+      "regions":[
+        "Básarabia", "Bender", "Cahul", "Causeni", "Cimislia", "Criuleni",
+        "Dondușeni", "Drochia", "Edinet", "Falesti", "Floresti", "Glodeni",
+        "Hincesti", "Ialoveni", "Leova", "Nisporeni", "Ocnita",
+        "Orhei", "Rezina", "Rîșcani", "Singerei", "Soroca",
+        "Stefan Vodă", "Straseni", "Taraclia"
+      ]
+    },
+    {
+      "country":"Omán",
+      "regions":[
+        "Ad Dakhiliyah", "Al Batinah", "Al Buraymi", "Al Dhahirah", "Al Dakhiliyah",
+        "Al Musandam", "Al Sharqiyah", "Ash Sharqiyah", "Dhofar", "Muscat",
+        "Musandam", "Zufar"
+      ]
+    },
+    {
+      "country":"Irak",
+      "regions":[
+        "Al Anbar", "Al Basrah", "Al Diyala", "Al Karbala", "Al Najaf",
+        "Al Qadisiyyah", "Al Sulaymaniyah", "Al Wasit", "Bagdad", "Dahuk",
+        "Dhi Qar", "Diyala", "Erbil", "Kirkuk", "Maysan",
+        "Nínive", "Salah al-Din", "Tamim"
+      ]
+    },
+    {
+      "country": "Jordania",
+      "regions": [
+        "Ajloun", "Al Balqa", "Al Karak", "Al Mafraq", "Al Zarqa",
+        "Aqaba", "Irbid", "Jarash", "Madaba", "Ma'an",
+        "Tafila"
+      ]
+    },
+    {
+      "country":"Chipre",
+      "regions":[
+        "Famagusta", "Kyrenia", "Larnaca", "Limassol", "Nicosia",
+        "Pafos", "Paphos", "Turquía del Norte"
+      ]
+    },
+    {
+      "country":"Libano",
+      "regions":[
+        "Akkar", "Al Baqa", "Al Janub", "Al Libano Norte", "Al Libano Sur",
+        "Beirut", "Mount Líbano", "Nabatíyeh", "Norte de Líbano",
+        "Sur", "Zgharta"
+      ]
+    },
+    {
+      "country":"Israel",
+      "regions":[
+        "Afula", "Ashdod", "Ashkelon", "Bat Yam", "Be'er Sheva",
+        "Bnei Brak", "Dimona", "Eilat", "Giv'atayim", "Haifa",
+        "Hadera", "Herzliya", "Holón", "Jerusalén", "Kiryat Ata",
+        "Kiryat Bialik", "Kiryat Gat", "Kiryat Malajim", "Kiryat Shmona",
+        "Kiryat Yam", "Nazaret", "Netanya", "Petaj Tikva", "Raanana",
+        "Ramat Gan", "Rishon LeZion", "Rosh HaAyin", "Safed", "Tiberíades",
+        "Tel Aviv", "Tiro"
+      ]
+    },
+    {
+      "country":"Arabia Saudita",
+      "regions":[
+        "Al Bahah", "Al Jawf", "Al Madinah", "Al Qasim", "Al Riyad",
+        "Asir", "Baha", "Hail", "Jazán", "Meca", "Najran",
+        "Qatif", "Riyad", "Tabuk"
+      ]
+    },
+    {
+      "country":"Ucrania",
+      "regions":[
+        "Cherkasy", "Chernígov", "Chernivtsi", "Dnipropetrovsk", "Donetsk",
+        "Ivano-Frankivsk", "Járkov", "Jerson", "Jmelnitski", "Kiev",
+        "Kirovogrado", "Lugansk", "Leópolis", "Mikoláiv", "Poltava",
+        "Rovno", "Sumy", "Ternópol", "Transcarpatia", "Vínitsa",
+        "Volinia", "Zaporiyia", "Zhitomir"
+      ]
+    },
+    {
+      "country":"Polonia",
+      "regions":[
+        "Baja Silesia", "Cuyavia y Pomerania", "Lublin", "Lubusz", "Masuria-Varmia",
+        "Mazovia", "Pequeña Polonia", "Podlaquia", "Podkarpacia", "Pomerania",
+        "Silesia", "Santa Cruz", "Varmia-Masuria", "Gran Polonia", "Silesia",
+        "Zamosc"
+      ]
+    },
+    {
+      "country":"República Checa",
+      "regions":[
+        "Bohemia Central", "Bohemia del Sur", "Bohemia Oriental", "Hradec Králové",
+        "Karlovy Vary", "Moravia-Silesia", "Olomouc", "Pilsen", "Praga",
+        "Ústí nad Labem", "Zlin"
+      ]
+    },
+    {
+      "country":"Eslovaquia",
+      "regions":[
+        "Bratislava", "Banská Bystrica", "Nitra", "Trenčín", "Trnava",
+        "Prešov", "Košice"
+      ]
+    },
+    {
+      "country": "Reino Unido",
+      "regions": [
+        "Inglaterra", "Escocia", "Gales", "Irlanda del Norte"
+      ]
+    },
+    {
+      "country": "Estados Unidos",
+      "regions": [
+        "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Carolina del Norte",
+        "Carolina del Sur", "Colorado", "Connecticut", "Dakota del Norte", "Dakota del Sur",
+        "Delaware", "Florida", "Georgia", "Hawái", "Idaho", "Illinois", "Indiana", "Iowa",
+        "Kansas", "Kentucky", "Luisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
+        "Minnesota", "Misisipi", "Misuri", "Montana", "Nebraska", "Nevada", "Nueva Jersey",
+        "Nueva York", "Nuevo Hampshire", "Nuevo México", "Ohio", "Oklahoma", "Oregón",
+        "Pensilvania", "Rhode Island", "Tennessee", "Texas", "Utah", "Vermont", "Virginia",
+        "Virginia Occidental", "Washington", "Wisconsin", "Wyoming"
+      ]
+    },
+    {
+      "country": "Canadá",
+      "regions": [
+        "Alberta", "Columbia Británica", "Manitoba", "Nuevo Brunswick", "Terranova y Labrador",
+        "Nueva Escocia", "Ontario", "Isla del Príncipe Eduardo", "Quebec", "Saskatchewan",
+        "Territorios del Noroeste", "Nunavut", "Yukón"
+      ]
+    },
+    {
+      "country": "Brasil",
+      "regions": [
+        "Acre", "Alagoas", "Amapá", "Bahía", "Ceará", "Distrito Federal", "Espírito Santo",
+        "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso del Sur", "Minas Gerais",
+        "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", "Río de Janeiro", "Río Grande del Norte",
+        "Río Grande del Sur", "Rondônia", "Roraima", "San Pablo", "Sergipe", "Tocantins"
+      ]
+    },
+    {
+      "country": "México",
+      "regions": [
+        "Aguascalientes", "Baja California", "Baja California Sur", "Campeche", "Chiapas",
+        "Chihuahua", "Ciudad de México", "Coahuila", "Colima", "Durango", "Estado de México",
+        "Guanajuato", "Guerrero", "Hidalgo", "Jalisco", "Michoacán", "Morelos", "Nayarit",
+        "Nuevo León", "Oaxaca", "Puebla", "Querétaro", "Quintana Roo", "San Luis Potosí",
+        "Sinaloa", "Sonora", "Tabasco", "Tamaulipas", "Tlaxcala", "Veracruz", "Yucatán",
+        "Zacatecas"
+      ]
+    },
+    {
+      "country": "Argentina",
+      "regions": [
+        "Buenos Aires", "Catamarca", "Chaco", "Chubut", "Córdoba", "Corrientes", "Entre Ríos",
+        "Formosa", "Jujuy", "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquén",
+        "Río Negro", "Salta", "San Juan", "San Luis", "Santa Cruz", "Santa Fe",
+        "Santiago del Estero", "Tierra del Fuego", "Tucumán"
+      ]
+    },
+    {
+      "country": "Belice",
+      "regions":[
+        "Belice", "Cayo", "Corozal", "Orange Walk", "Stann Creek", "Toledo"
+      ]
+    },
+    {
+      "country":"Bolivia",
+      "regions":[
+        "Beni", "Chuquisaca", "Cochabamba", "La Paz", "Oruro", "Pando", "Potosí",
+        "Santa Cruz", "Tarija"
+      ]
+    },
+    {
+      "country":"Ecuador",
+      "regions":[
+        "Azuay", "Bolívar", "Cañar", "Carchi", "Chimborazo", "Cotopaxi", "El Oro",
+        "Esmeraldas", "Galápagos", "Guayas", "Imbabura", "Loja", "Los Ríos",
+        "Manabí", "Morona Santiago", "Napo", "Orellana", "Pastaza", "Pichincha",
+        "Tungurahua", "Zamora-Chinchipe"
+      ]
+    },
+    {
+      "country": "Colombia",
+      "regions": [
+        "Amazonas", "Antioquia", "Arauca", "Atlántico", "Bolívar", "Boyacá", "Caldas",
+        "Caquetá", "Casanare", "Cauca", "Cesar", "Chocó", "Córdoba", "Cundinamarca",
+        "Guainía", "Guaviare", "Huila", "La Guajira", "Magdalena", "Meta", "Nariño",
+        "Norte de Santander", "Putumayo", "Quindío", "Risaralda", "San Andrés y Providencia",
+        "Santander", "Sucre", "Tolima", "Valle del Cauca", "Vaupés", "Vichada"
+      ]
+    },
+    {
+      "country": "Chile",
+      "regions": [
+        "Arica y Parinacota", "Tarapacá", "Antofagasta", "Atacama", "Coquimbo", "Valparaíso",
+        "Metropolitana de Santiago", "O'Higgins", "Maule", "Ñuble", "Biobío", "La Araucanía",
+        "Los Ríos", "Los Lagos", "Aysén del General Carlos Ibáñez del Campo",
+        "Magallanes y de la Antártica Chilena"
+      ]
+    },
+    {
+      "country": "Perú",
+      "regions": [
+        "Amazonas", "Áncash", "Apurímac", "Arequipa", "Ayacucho", "Cajamarca", "Callao",
+        "Cusco", "Huancavelica", "Huánuco", "Ica", "Junín", "La Libertad", "Lambayeque",
+        "Lima Provincias", "Lima Metropolitana", "Loreto", "Madre de Dios", "Moquegua",
+        "Pasco", "Piura", "Puno", "San Martín", "Tacna", "Tumbes"
+      ]
+    },
+    {
+      "country": "Uruguay",
+      "regions": [
+        "Artigas", "Canelones", "Cerro Largo", "Colonia", "Durazno", "Flores", "Florida",
+        "Lavalleja", "Maldonado", "Montevideo", "Paysandú", "Río Negro", "Río San Francisco"
+      ]
+    },
+    {
+      "country": "Paraguay",
+      "regions": [
+        "Alto Paraguay", "Alto Paraná", "Amambay", "Asunción", "Boquerón", "Caaguazú",
+        "Caazapá", "Canindeyú", "Central", "Concepción", "Cordillera", "Guairá",
+        "Itapúa", "Misiones", "Ñeembucú", "Paraguarí", "Presidente Hayes",
+        "San Pedro"
+      ]
+    },  
+    {
+      "country": "Venezuela",
+      "regions": [
+        "Amazonas", "Anzoátegui", "Apure", "Aragua", "Barinas", "Bolívar", "Carabobo",
+        "Cojedes", "Delta Amacuro", "Falcón", "Guárico", "Lara", "Mérida", "Miranda",
+        "Monagas", "Nueva Esparta", "Portuguesa", "Sucre", "Táchira", "Trujillo",
+        "Yaracuy", "Zulia"
+      ]
+    },
+    {
+      "country": "Cuba",
+      "regions": [
+        "Artemisa", "Camagüey", "Ciego de Ávila", "Cienfuegos", "Granma",
+        "Guantánamo", "Holguín", "Isla de la Juventud", "La Habana",
+        "Las Tunas", "Matanzas", "Pinar del Río", "Sancti Spíritus",
+        "Santiago de Cuba", "Villa Clara"
+      ]
+    },
+    {
+      "country": "República Dominicana",
+      "regions": [
+        "Azua", "Bahoruco", "Barahona", "Dajabón", "Duarte", "Elías Piña", "El Seibo",
+        "Espaillat", "Hato Mayor", "Independencia", "La Altagracia", "La Romana",
+        "La Vega", "María Trinidad Sánchez", "Monte Cristi", "Monte Plata",
+        "Pedernales", "Peravia", "Puerto Plata", "Salcedo", "Samaná",
+        "San Cristóbal", "San José de Ocoa", "San Juan de la Maguana",
+        "San Pedro de Macorís", "Sánchez Ramírez", "Santiago",
+        "Santiago Rodríguez", "Valverde"
+      ]
+    },
+    {
+      "country": "Honduras",
+      "regions": [
+        "Atlántida", "Choluteca", "Colón", "Comayagua", "Copán", "Cortés", "El Paraíso",
+        "Francisco Morazán", "Gracias a Dios", "Islas de la Bahía", "La Paz",
+        "Lempira", "Ocotepeque", "Olancho", "Santa Bárbara", "Valle"
+      ]
+    },
+    {
+      "country": "El Salvador",
+      "regions": [
+        "Ahuachapán", "Cabañas", "Chalatenango", "Cuscatlán", "La Libertad",
+        "La Paz", "La Unión", "Morazán", "San Miguel", "San Salvador",
+        "San Vicente", "Sonsonate", "Usulután"
+      ]
+    },
+    {
+      "country": "Guatemala",
+      "regions": [
+        "Alta Verapaz", "Baja Verapaz", "Chimaltenango", "Chiquimula", "El Progreso",
+        "Escuintla", "Guatemala", "Huehuetenango", "Izabal", "Jalapa",
+        "Jutiapa", "Petén", "Quetzaltenango", "Quiché", "Retalhuleu",
+        "Sacatepéquez", "San Marcos", "Santa Rosa", "Solalá",
+        "Suchitepéquez", "Totonicapán", "Zacapa"
+      ]
+    },
+    {
+      "country": "Nicaragua",
+      "regions": [
+        "Boaco", "Carazo", "Chinandega", "Chontales", "Estelí", "Granada",
+        "Jinotega", "León", "Madriz", "Managua", "Masaya",
+        "Matagalpa", "Nueva Segovia", "Rivas"
+      ]
+    },
+    {
+      "country": "Costa Rica",
+      "regions": [
+        "Alajuela", "Cartago", "Guanacaste", "Heredia", "Limón", "Puntarenas",
+        "San José"
+      ]
+    },
+    {
+      "country": "Panamá",
+      "regions": [
+        "Bocas del Toro", "Chiriquí", "Coclé", "Colón", "Darién", "Herrera",
+        "Los Santos", "Panamá", "Veraguas"
+      ]
+    },
+    {
+      "country": "Egipto",
+      "regions": [
+        "Alejandría",
+        "Asiut",
+        "Asuán",
+        "Behera",
+        "Beni Suef",
+        "Cairo",
+        "Dacalia",
+        "Damieta",
+        "Fayún",
+        "Gharbia",
+        "Giza",
+        "Ismailía",
+        "Kafr el Sheij",
+        "Luxor",
+        "Mar Rojo",
+        "Menia",
+        "Menufia",
+        "Matrú",
+        "Nueva Valle",
+        "Puerto Said",
+        "Qena",
+        "Sharqia",
+        "Sinaí del Norte",
+        "Sinaí del Sur",
+        "Sohag",
+        "Suez",
+        "Caliubia"
+      ]
+    },
+    {
+      "country": "Marruecos",
+      "regions": [
+        "Tánger-Tetuán-Alhucemas",
+        "Oriental",
+        "Fez-Mequinez",
+        "Rabat-Salé-Kenitra",
+        "Beni Melal-Jenifra",
+        "Casablanca-Settat",
+        "Marrakech-Safí",
+        "Draa-Tafilalet",
+        "Sus-Masa",
+        "Guelmim-Río Nun",
+        "El Aaiún-Saguía el-Hamra",
+        "Dajla-Río de Oro"
+      ]
+    },
+    {
+      "country": "Argelia",
+      "regions": [
+        "Adrar",
+        "Chlef",
+        "Laghouat",
+        "Oum El Bouaghi",
+        "Batna",
+        "Béjaïa",
+        "Biskra",
+        "Béchar",
+        "Blida",
+        "Bouira",
+        "Tamanrasset",
+        "Tébessa",
+        "Tlemcen",
+        "Tiaret",
+        "Tizi Ouzou",
+        "Alger",
+        "Djelfa",
+        "Jijel",
+        "Sétif",
+        "Saïda",
+        "Skikda",
+        "Sidi Bel Abbès",
+        "Annaba",
+        "Guelma",
+        "Constantine",
+        "Médéa",
+        "Mostaganem",
+        "M’Sila",
+        "Mascara",
+        "Ouargla",
+        "Orán",
+        "El Bayadh",
+        "Illizi",
+        "Bordj Bou Arréridj",
+        "Boumerdès",
+        "El Tarf",
+        "Tinduf",
+        "Tissemsilt",
+        "El Oued",
+        "Khenchela",
+        "Souk Ahras",
+        "Tipaza",
+        "Mila",
+        "Aïn Defla",
+        "Naâma",
+        "Aïn Témouchent",
+        "Ghardaïa",
+        "Relizane"
+      ]
+    },
+    {
+      "country": "Túnez",
+      "regions": [
+        "Ariana",
+        "Béja",
+        "Ben Arous",
+        "Bizerte",
+        "Gabès",
+        "Gafsa",
+        "Jendouba",
+        "Kairuán",
+        "Kaserín",
+        "Kebili",
+        "Kef",
+        "Mahdia",
+        "Manouba",
+        "Medenine",
+        "Monastir",
+        "Nabeul",
+        "Sfax",
+        "Sidi Bouzid",
+        "Siliana",
+        "Susa",
+        "Tataouine",
+        "Tozeur",
+        "Túnez",
+        "Zaghouan"
+      ]
+    },
+    {
+      "country": "Kenya",
+      "regions": [
+        "Baringo",
+        "Bomet",
+        "Bungoma",
+        "Busia",
+        "Elgeyo-Marakwet",
+        "Embu",
+        "Garissa",
+        "Homa Bay",
+        "Isiolo",
+        "Kajiado",
+        "Kakamega",
+        "Kericho",
+        "Kiambu",
+        "Kilifi",
+        "Kirinyaga",
+        "Kisii",
+        "Kisumu",
+        "Kitui",
+        "Kwale",
+        "Laikipia",
+        "Lamu",
+        "Machakos",
+        "Makueni",
+        "Mandera",
+        "Marsabit",
+        "Meru",
+        "Migori",
+        "Mombasa",
+        "Murang'a",
+        "Nairobi",
+        "Nakuru",
+        "Nandi",
+        "Narok",
+        "Nyamira",
+        "Nyandarua",
+        "Nyeri",
+        "Samburu",
+        "Siaya",
+        "Taita-Taveta",
+        "Tana River",
+        "Tharaka-Nithi",
+        "Trans Nzoia",
+        "Turkana",
+        "Uasin Gishu",
+        "Vihiga",
+        "Wajir",
+        "West Pokot"
+      ]
+    },
+    {
+      "country": "Tailandia",
+      "regions": [
+        "Bangkok",
+        "Chiang Mai",
+        "Chiang Rai",
+        "Lampang",
+        "Lamphun",
+        "Mae Hong Son",
+        "Nan",
+        "Phayao",
+        "Phrae",
+        "Uttaradit",
+        "Amnat Charoen",
+        "Bueng Kan",
+        "Buriram",
+        "Chaiyaphum",
+        "Kalasin",
+        "Khon Kaen",
+        "Loei",
+        "Maha Sarakham",
+        "Mukdahan",
+        "Nakhon Phanom",
+        "Nakhon Ratchasima",
+        "Nong Bua Lamphu",
+        "Nong Khai",
+        "Roi Et",
+        "Sakon Nakhon",
+        "Si Sa Ket",
+        "Surin",
+        "Ubon Ratchathani",
+        "Udon Thani",
+        "Yasothon",
+        "Chachoengsao",
+        "Chanthaburi",
+        "Chonburi",
+        "Prachinburi",
+        "Rayong",
+        "Sa Kaeo",
+        "Trat",
+        "Ang Thong",
+        "Ayutthaya",
+        "Chai Nat",
+        "Lopburi",
+        "Nakhon Nayok",
+        "Nakhon Pathom",
+        "Nonthaburi",
+        "Pathum Thani",
+        "Phetchabun",
+        "Ratchaburi",
+        "Samut Prakan",
+        "Samut Sakhon",
+        "Samut Songkhram",
+        "Saraburi",
+        "Sing Buri",
+        "Suphan Buri",
+        "Kanchanaburi",
+        "Nakhon Sawan",
+        "Phichit",
+        "Phitsanulok",
+        "Sukhothai",
+        "Tak",
+        "Uthai Thani",
+        "Kamphaeng Phet",
+        "Nakhon Si Thammarat",
+        "Narathiwat",
+        "Pattani",
+        "Phang Nga",
+        "Phatthalung",
+        "Phuket",
+        "Ranong",
+        "Satun",
+        "Songkhla",
+        "Surat Thani",
+        "Trang",
+        "Yala"
+      ]
+    },
+    {
+      "country": "Malasia",
+      "regions": [
+        "Johor",
+        "Kedah",
+        "Kelantan",
+        "Malaca",
+        "Negeri Sembilan",
+        "Pahang",
+        "Penang",
+        "Perak",
+        "Perlis",
+        "Selangor",
+        "Terengganu",
+        "Sabah",
+        "Sarawak"
+      ]
+    },
+   
+    {
+      "country": "Filipinas",
+      "regions": [
+        "Abra", 
+        "Agusan del Norte", 
+        "Agusan del Sur", 
+        "Aklan", 
+        "Albay", 
+        "Antique", 
+        "Apayao", 
+        "Aurora", 
+        "Basilan", 
+        "Bataan", 
+        "Batanes", 
+        "Batangas", 
+        "Benguet", 
+        "Biliran", 
+        "Bohol", 
+        "Bukidnon", 
+        "Bulacan", 
+        "Cagayan", 
+        "Camarines Norte", 
+        "Camarines Sur", 
+        "Camiguin", 
+        "Capiz", 
+        "Catanduanes", 
+        "Cavite", 
+        "Cebu", 
+        "Compostela Valley", 
+        "Cotabato", 
+        "Davao del Norte", 
+        "Davao del Sur", 
+        "Davao Oriental", 
+        "Eastern Samar", 
+        "Guimaras", 
+        "Ifugao", 
+        "Ilocos Norte", 
+        "Ilocos Sur", 
+        "Iloilo", 
+        "Isabela", 
+        "Kalinga", 
+        "La Union", 
+        "Laguna", 
+        "Lanao del Norte", 
+        "Lanao del Sur", 
+        "Leyte", 
+        "Maguindanao", 
+        "Marinduque", 
+        "Masbate", 
+        "Misamis Occidental", 
+        "Misamis Oriental", 
+        "Mountain Province" 
+      ]
+    }
+  ]
+  
