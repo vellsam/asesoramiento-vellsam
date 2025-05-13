@@ -6,12 +6,13 @@
     "orientation": "portrait",
     "icon": "./assets/icono-vellsam.png",
     "splash": {
-      "image": "./assets/vellsaminicio.png",
-      "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFBEF"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/42650f3e-5692-4580-b263-d68254b25318"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -27,6 +28,14 @@
     },
     "web": {
       "favicon": "./assets/icono-vellsam.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "42650f3e-5692-4580-b263-d68254b25318"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
     }
   }
 }

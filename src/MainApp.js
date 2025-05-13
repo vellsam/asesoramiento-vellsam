@@ -1,11 +1,19 @@
+// src/MainApp.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ScrollView, Linking, ActivityIndicator, Alert, Image, useColorScheme } from 'react-native';
+import {
+  View, Text, TextInput, Button, StyleSheet, ScrollView, Linking,
+  ActivityIndicator, Alert, Image, useColorScheme, Switch
+} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import { getRecomendaciones } from './logic/recomendaciones';
 import { cultivos } from './data/cultivos';
-import { enviarCorreoConRecomendaciones } from './utils/enviarCorreo';
+import { enviarCorreoConRecomendaciones, enviarCorreoSinRecomendaciones } from './utils/enviarCorreo';
 import countryRegionData from './data/countryRegionData.json';
+import { traducirPais } from './utils/paisTraducciones';
+import { useFocusEffect } from '@react-navigation/native';
+import { useLanguage } from './context/LanguageContext';
+import { strings } from './strings';
 
 export default function MainApp() {
   const [step, setStep] = useState(0);
@@ -19,8 +27,19 @@ export default function MainApp() {
   const [hectareas, setHectareas] = useState('');
   const [recomendados, setRecomendados] = useState([]);
   const [enviando, setEnviando] = useState(false);
-  const colorScheme = useColorScheme();
+  const [aceptaAlmacenamiento, setAceptaAlmacenamiento] = useState(false);
 
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [hectareasError, setHectareasError] = useState('');
+
+  const [_, forceUpdate] = useState(0);
+  useFocusEffect(React.useCallback(() => { forceUpdate(n => n + 1); }, []));
+
+  const { language } = useLanguage();
+  const t = strings[language];
+
+  const colorScheme = useColorScheme();
   const isDark = colorScheme === 'dark';
   const logo = isDark
     ? require('../assets/Vellsam_horizontal_blanco.png')
@@ -38,7 +57,7 @@ export default function MainApp() {
     label: { fontSize: 18, marginBottom: 10, color: theme.text },
     input: {
       borderWidth: 1, borderColor: theme.border, padding: 8,
-      marginBottom: 15, borderRadius: 5, color: theme.text, backgroundColor: theme.card,
+      marginBottom: 5, borderRadius: 5, color: theme.text, backgroundColor: theme.card,
     },
     picker: {
       borderWidth: 1, borderColor: theme.border, marginBottom: 20,
@@ -55,24 +74,29 @@ export default function MainApp() {
       width: 200, height: 60, resizeMode: 'contain',
       alignSelf: 'center', marginBottom: 20, marginTop: 20,
     },
+    errorText: { color: '#ff4d4d', marginBottom: 10 },
   });
 
-  const nombreFases = {
-    FLOR: 'Floración', ENR: 'Enraizamiento', CUA: 'Cuajado', ENG: 'Engorde',
-    MAD: 'Maduración', SN: 'Sanidad', VEG: 'Vegetativo', BRO: 'Brotación',
-    PR: 'Poda de retorno', NAS: 'Nascencia', AHI: 'Ahijado', ENC: 'Encañado',
+  const validarCorreo = (correo) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
+  const validarHectareas = (valor) => {
+    const num = parseFloat(valor.replace(',', '.'));
+    return !isNaN(num) && num > 0;
   };
+  const validarNombre = (nombre) => /^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s'-]+$/.test(nombre.trim());
 
   const listaCultivos = Object.keys(cultivos).map((key) => ({
     label: key.charAt(0).toUpperCase() + key.slice(1),
     value: key,
   }));
 
-  const fasesDisponibles = Object.keys(nombreFases);
+  const fasesDisponibles = Object.keys(t.phaseNames);
   const countryList = countryRegionData.map(item => item.country);
   const regionesDisponibles = countryRegionData.find(p => p.country === country)?.regions || [];
 
-  const camposCompletosPaso0 = name && email && country && region && hectareas;
+  const camposCompletosPaso0 =
+    name && email && country && region && hectareas &&
+    validarCorreo(email) && validarHectareas(hectareas) && validarNombre(name);
+
   const camposCompletosPaso1 = crop && phase && production;
 
   const handleFinish = async () => {
@@ -84,30 +108,32 @@ export default function MainApp() {
     const hectareasNormalizadas = hectareas.replace(',', '.');
 
     try {
-      await axios.post('https://api.sheety.co/50910ab5d9fcb816bfcd3ad8a1bb2169/datosAsesoramiento/datos', {
-        dato: {
-          nombre: name,
-          correo: email,
-          pais: country,
-          provincia: region,
-          hectareas: hectareasNormalizadas,
-          cultivo: crop,
-          fase: phase,
-          produccion: production,
-          fecha: new Date().toISOString(),
-        },
-      });
+      if (aceptaAlmacenamiento) {
+        await axios.post('https://api.sheety.co/50910ab5d9fcb816bfcd3ad8a1bb2169/datosAsesoramiento/datos', {
+          dato: {
+            nombre: name,
+            correo: email,
+            pais: country,
+            provincia: region,
+            hectareas: hectareasNormalizadas,
+            cultivo: crop,
+            fase: phase,
+            produccion: production,
+            fecha: new Date().toISOString(),
+          },
+        });
+      }
 
-      await enviarCorreoConRecomendaciones({
-        nombre: name,
-        email: email,
-        recomendaciones: resultados,
-      });
+      if (resultados.length > 0) {
+        await enviarCorreoConRecomendaciones({ nombre: name, email: email, recomendaciones: resultados });
+      } else {
+        await enviarCorreoSinRecomendaciones({ nombre: name, email: email });
+      }
 
-      Alert.alert('✅ Datos guardados', 'Tus datos se han guardado correctamente.');
+      Alert.alert('✅', t.emailSuccess);
     } catch (error) {
-      console.error('❌ Error al guardar en Sheets:', error);
-      Alert.alert('❌ Error', 'No se han podido guardar tus datos.');
+      console.error('❌ Error:', error);
+      Alert.alert('❌', t.emailError);
     }
 
     setEnviando(false);
@@ -120,25 +146,42 @@ export default function MainApp() {
 
       {step === 0 && (
         <>
-          <Text style={styles.label}>¿Cómo te llamas?</Text>
-          <TextInput style={styles.input} value={name} onChangeText={setName} />
+          <Text style={styles.label}>{t.nameQuestion}</Text>
+          <TextInput
+            style={[styles.input, nameError ? { borderColor: '#ff4d4d' } : {}]}
+            value={name}
+            onChangeText={(text) => {
+              setName(text);
+              setNameError(validarNombre(text) ? '' : t.errorName);
+            }}
+          />
+          {nameError ? <Text style={styles.errorText}>{nameError}</Text> : null}
 
-          <Text style={styles.label}>Correo electrónico:</Text>
-          <TextInput style={styles.input} value={email} onChangeText={setEmail} keyboardType="email-address" />
+          <Text style={styles.label}>{t.email}</Text>
+          <TextInput
+            style={[styles.input, emailError ? { borderColor: '#ff4d4d' } : {}]}
+            value={email}
+            onChangeText={(text) => {
+              setEmail(text);
+              setEmailError(validarCorreo(text) ? '' : t.errorEmail);
+            }}
+            keyboardType="email-address"
+          />
+          {emailError ? <Text style={styles.errorText}>{emailError}</Text> : null}
 
-          <Text style={styles.label}>¿En qué país se encuentra tu cultivo?</Text>
+          <Text style={styles.label}>{t.countryQuestion}</Text>
           <Picker selectedValue={country} onValueChange={(val) => { setCountry(val); setRegion(''); }} style={styles.picker}>
-            <Picker.Item label="Selecciona un país" value="" />
+            <Picker.Item label="--" value="" />
             {countryList.map((pais) => (
-              <Picker.Item key={pais} label={pais} value={pais} />
+              <Picker.Item key={pais} label={traducirPais(pais, language)} value={pais} />
             ))}
           </Picker>
 
           {country && (
             <>
-              <Text style={styles.label}>¿En qué región o provincia?</Text>
+              <Text style={styles.label}>{t.regionQuestion}</Text>
               <Picker selectedValue={region} onValueChange={setRegion} style={styles.picker}>
-                <Picker.Item label="Selecciona una región" value="" />
+                <Picker.Item label="--" value="" />
                 {regionesDisponibles.map((reg) => (
                   <Picker.Item key={reg} label={reg} value={reg} />
                 ))}
@@ -146,44 +189,78 @@ export default function MainApp() {
             </>
           )}
 
-          <Text style={styles.label}>¿Cuántas hectáreas cultivas?</Text>
-          <TextInput style={styles.input} value={hectareas} onChangeText={setHectareas} keyboardType="decimal-pad" placeholder="Ej: 2.5" />
+          <Text style={styles.label}>{t.hectaresQuestion}</Text>
+          <TextInput
+            style={[styles.input, hectareasError ? { borderColor: '#ff4d4d' } : {}]}
+            value={hectareas}
+            onChangeText={(text) => {
+              setHectareas(text);
+              setHectareasError(validarHectareas(text) ? '' : t.errorHectares);
+            }}
+            keyboardType="decimal-pad"
+            placeholder="Ej: 2.5"
+          />
+          {hectareasError ? <Text style={styles.errorText}>{hectareasError}</Text> : null}
 
-          <Button title="Siguiente" onPress={() => setStep(1)} disabled={!camposCompletosPaso0} />
+          <Button title={t.next} onPress={() => setStep(1)} disabled={!camposCompletosPaso0} />
         </>
       )}
 
       {step === 1 && (
         <>
-          <Text style={styles.label}>¿Qué cultivo tienes?</Text>
+          <Text style={styles.label}>{t.cropQuestion}</Text>
           <Picker selectedValue={crop} onValueChange={setCrop} style={styles.picker}>
-            <Picker.Item label="Selecciona un cultivo" value="" />
+            <Picker.Item label="--" value="" />
             {listaCultivos.map((item) => <Picker.Item key={item.value} label={item.label} value={item.value} />)}
           </Picker>
 
-          <Text style={styles.label}>¿Qué fase tiene el cultivo?</Text>
+          <Text style={styles.label}>{t.phaseQuestion}</Text>
           <Picker selectedValue={phase} onValueChange={setPhase} style={styles.picker}>
-            <Picker.Item label="Selecciona una fase" value="" />
-            {fasesDisponibles.map((f) => <Picker.Item key={f} label={nombreFases[f]} value={f} />)}
+            <Picker.Item label="--" value="" />
+            {fasesDisponibles.map((f) => <Picker.Item key={f} label={t.phaseNames[f]} value={f} />)}
           </Picker>
 
-          <Text style={styles.label}>Tipo de producción:</Text>
+          <Text style={styles.label}>{t.productionType}</Text>
           <Picker selectedValue={production} onValueChange={setProduction} style={styles.picker}>
-            <Picker.Item label="Selecciona el tipo" value="" />
-            <Picker.Item label="Convencional" value="Convencional" />
-            <Picker.Item label="Ecológica" value="Ecológica" />
+            <Picker.Item label="--" value="" />
+            <Picker.Item label={t.conventional} value="Convencional" />
+            <Picker.Item label={t.organic} value="Ecológica" />
           </Picker>
+
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 15, flexWrap: 'wrap' }}>
+            <Switch
+              value={aceptaAlmacenamiento}
+              onValueChange={setAceptaAlmacenamiento}
+              trackColor={{ false: '#ccc', true: '#1c4c25' }}
+              thumbColor={aceptaAlmacenamiento ? '#FF8800' : '#f4f3f4'}
+            />
+            <Text style={{ marginLeft: 10, color: theme.text, flexShrink: 1 }}>
+              {t.acceptStorage}{' '}
+              <Text
+                style={{ color: '#66aaff', textDecorationLine: 'underline' }}
+                onPress={() => Linking.openURL('https://www.vellsam.com/aviso-legal/')}
+              >
+                {t.seePolicy}
+              </Text>.
+            </Text>
+          </View>
 
           {enviando && <ActivityIndicator size="large" color="#007bff" />}
-          <Button title="Ver recomendaciones" onPress={handleFinish} disabled={!camposCompletosPaso1 || enviando} />
+          <Button
+            title={t.viewRecommendations}
+            onPress={handleFinish}
+            disabled={!camposCompletosPaso1 || !aceptaAlmacenamiento || enviando}
+          />
         </>
       )}
 
       {step === 3 && (
         <>
-          <Text style={styles.label}>✅ ¡Gracias, {name}!</Text>
+          <Text style={styles.label}>✅ {t.thankYou}, {name}!</Text>
           <Text style={styles.label}>País: {country} — Región: {region} — Hectáreas: {hectareas}</Text>
-          <Text style={styles.label}>Productos recomendados para el cultivo {crop.charAt(0).toUpperCase() + crop.slice(1)} en fase {nombreFases[phase] || phase}:</Text>
+          <Text style={styles.label}>
+            {t.productsRecommended} {crop.charAt(0).toUpperCase() + crop.slice(1)} en fase {t.phaseNames[phase] || phase}:
+          </Text>
 
           {recomendados.length > 0 ? (
             recomendados.map((prod, index) => (
@@ -194,7 +271,7 @@ export default function MainApp() {
               </View>
             ))
           ) : (
-            <Text style={styles.label}>No se encontraron productos para esta combinación.</Text>
+            <Text style={styles.label}>{t.noProducts}</Text>
           )}
         </>
       )}

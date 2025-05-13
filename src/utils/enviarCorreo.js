@@ -1,23 +1,27 @@
 import axios from 'axios';
+import { strings } from '../strings';
+import { language } from '../context/staticLanguage';
 
 export const enviarCorreoConRecomendaciones = async ({ nombre, email, recomendaciones }) => {
+  const t = strings[language];
+
   const productosHTML = recomendaciones.map((prod) => `
     <tr style="border-bottom: 1px solid #e0e0e0;">
       <td style="padding: 16px;">
         <h3 style="margin: 0 0 8px 0; color: #1c4c25; font-size: 18px;">${prod.nombre}</h3>
-        ${prod.rad ? `<p style="margin: 4px 0; font-size: 14px;">Dosis radicular: ${prod.rad} L/Ha</p>` : ''}
-        ${prod.url ? `<a href="${prod.url}" style="color: #ff8c00; font-size: 14px;">Más información</a>` : ''}
+        ${prod.rad ? `<p style="margin: 4px 0; font-size: 14px;">${t.phaseNames.RAD || 'Dosis radicular'}: ${prod.rad} L/Ha</p>` : ''}
+        ${prod.url ? `<a href="${prod.url}" style="color: #ff8c00; font-size: 14px;">${t.seePolicy}</a>` : ''}
       </td>
     </tr>
   `).join('');
 
   const htmlContent = `
     <!DOCTYPE html>
-    <html lang="es">
+    <html lang="${language}">
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Recomendaciones Vellsam</title>
+      <title>${t.productsRecommended}</title>
       <style>
         body {
           font-family: 'Segoe UI', sans-serif;
@@ -48,15 +52,9 @@ export const enviarCorreoConRecomendaciones = async ({ nombre, email, recomendac
           color: #888;
         }
         @media only screen and (max-width: 600px) {
-          .container {
-            padding: 16px;
-          }
-          h2 {
-            font-size: 20px;
-          }
-          h3 {
-            font-size: 16px;
-          }
+          .container { padding: 16px; }
+          h2 { font-size: 20px; }
+          h3 { font-size: 16px; }
         }
       </style>
     </head>
@@ -64,16 +62,16 @@ export const enviarCorreoConRecomendaciones = async ({ nombre, email, recomendac
       <div class="container">
         <div class="header">
           <img class="logo" src="https://i.postimg.cc/MfSbK1Bt/vellsaminicio.png" alt="Vellsam Logo" />
-          <h2 style="color: #1c4c25;">Recomendaciones personalizadas para tu cultivo</h2>
+          <h2 style="color: #1c4c25;">${t.productsRecommended}</h2>
         </div>
-        <p>Hola <strong>${nombre}</strong>,</p>
-        <p>Gracias por utilizar nuestro asistente. Aquí tienes los productos recomendados:</p>
+        <p>${t.thankYou} <strong>${nombre}</strong>,</p>
+        <p>${t.viewRecommendations}:</p>
         <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse;">
           ${productosHTML}
         </table>
-        <p>Si tienes dudas o quieres una recomendación más personalizada, no dudes en contactarnos.</p>
+        <p>${t.acceptStorage}</p>
         <div class="footer">
-          Juntos cambiamos el mundo 🌱
+          🌱 Vellsam
         </div>
       </div>
     </body>
@@ -84,7 +82,7 @@ export const enviarCorreoConRecomendaciones = async ({ nombre, email, recomendac
     await axios.post('https://api.resend.com/emails', {
       from: 'asistente@vellsam.com',
       to: [email],
-      subject: 'Recomendaciones Vellsam para tu cultivo',
+      subject: t.productsRecommended,
       html: htmlContent,
     }, {
       headers: {
@@ -98,15 +96,16 @@ export const enviarCorreoConRecomendaciones = async ({ nombre, email, recomendac
     console.error('❌ Error al enviar el correo:', error);
   }
 };
-
 export const enviarCorreoSinRecomendaciones = async ({ nombre, email }) => {
+  const t = strings[language];
+
   const htmlContent = `
     <!DOCTYPE html>
-    <html lang="es">
+    <html lang="${language}">
     <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Asistencia personalizada</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>${t.productsRecommended}</title>
       <style>
         body {
           font-family: 'Segoe UI', sans-serif;
@@ -141,15 +140,34 @@ export const enviarCorreoSinRecomendaciones = async ({ nombre, email }) => {
     <body>
       <div class="container">
         <div class="header">
-          <img class="logo" src="https://i.postimg.cc/MfSbK1Bt/vellsaminicio.png" alt="Vellsam Logo" />
-          <h2 style="color: #1c4c25;">Gracias por tu consulta</h2>
+          <img class="logo" src="https://i.postimg.cc/MfSbK1Bt/vellsaminicio.png" alt="Vellsam Logo">
+          <h2 style="color: #1c4c25;">
+            ${t.thankYou}, ${nombre}
+          </h2>
         </div>
-        <p>Hola <strong>${nombre}</strong>,</p>
-        <p>Gracias por utilizar el Asistente Vellsam. Actualmente no tenemos recomendaciones automáticas para tu cultivo y fase.</p>
-        <p>Pero no te preocupes, nuestro equipo técnico analizará tu caso y te contactará pronto.</p>
-        <p>También puedes escribirnos directamente a <a href="mailto:vellsam@vellsam.com">vellsam@vellsam.com</a>.</p>
+        <p>
+          ${
+            language === 'en'
+              ? "Thank you for using the Vellsam Assistant. We currently have no automatic recommendations for your crop and phase."
+              : "Gracias por utilizar el Asistente Vellsam. Actualmente no tenemos recomendaciones automáticas para tu cultivo y fase."
+          }
+        </p>
+        <p>
+          ${
+            language === 'en'
+              ? "Our technical team will review your case and contact you soon."
+              : "Nuestro equipo técnico revisará tu caso y se pondrá en contacto contigo en breve."
+          }
+        </p>
+        <p>
+          ${
+            language === 'en'
+              ? 'You can also contact us directly at'
+              : 'También puedes escribirnos directamente a'
+          } <a href="mailto:vellsam@vellsam.com">vellsam@vellsam.com</a>.
+        </p>
         <div class="footer">
-          Juntos cambiamos el mundo 🌱
+          🌱 Vellsam
         </div>
       </div>
     </body>
@@ -160,7 +178,7 @@ export const enviarCorreoSinRecomendaciones = async ({ nombre, email }) => {
     await axios.post('https://api.resend.com/emails', {
       from: 'asistente@vellsam.com',
       to: [email],
-      subject: 'Asistencia personalizada de Vellsam',
+      subject: t.productsRecommended,
       html: htmlContent,
     }, {
       headers: {
@@ -174,3 +192,4 @@ export const enviarCorreoSinRecomendaciones = async ({ nombre, email }) => {
     console.error('❌ Error al enviar el correo sin recomendaciones:', error);
   }
 };
+
