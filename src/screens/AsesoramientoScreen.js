@@ -23,6 +23,12 @@ export default function AsesoramientoScreen() {
   const [archivoURL, setArchivoURL] = useState('');
   const [enviando, setEnviando] = useState(false);
 
+  const [paisLocked, setPaisLocked] = useState(false);
+  const [provinciaLocked, setProvinciaLocked] = useState(false);
+  const [cultivoLocked, setCultivoLocked] = useState(false);
+  const [faseLocked, setFaseLocked] = useState(false);
+  const [produccionLocked, setProduccionLocked] = useState(false);
+
   const { language } = useLanguage();
   const t = strings[language];
   const isDark = useColorScheme() === 'dark';
@@ -38,7 +44,16 @@ export default function AsesoramientoScreen() {
   const listaCultivos = Object.keys(t.crops).map(key => ({ label: t.crops[key], value: key }));
   const fasesDisponibles = Object.keys(t.phaseNames);
 
-  const pickDocumento = async () => {
+  const validarCorreo = (correo) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo);
+  const validarNombre = (nombre) => /^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s'-]+$/.test(nombre.trim());
+  const validarHectareas = (valor) => {
+    const num = parseFloat(valor.replace(',', '.'));
+    return !isNaN(num) && num > 0;
+  };
+
+ const [subiendoArchivo, setSubiendoArchivo] = useState(false);
+
+const pickDocumento = async () => {
   try {
     const result = await DocumentPicker.getDocumentAsync({ copyToCacheDirectory: true });
     if (!result.assets || result.assets.length === 0) {
@@ -52,18 +67,14 @@ export default function AsesoramientoScreen() {
     const type = file.mimeType || 'application/pdf';
 
     const formData = new FormData();
-    formData.append('archivo', {
-      uri,
-      name,
-      type,
-    });
+    formData.append('archivo', { uri, name, type });
+
+    setSubiendoArchivo(true); // ✅ empieza carga
 
     const response = await fetch('https://asesoramiento-vellsam.onrender.com/upload', {
       method: 'POST',
       body: formData,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
 
     const text = await response.text();
@@ -74,49 +85,72 @@ export default function AsesoramientoScreen() {
         setArchivoURL(data.url);
         Alert.alert('✅ Archivo subido', 'URL generada correctamente');
       } else {
-        console.error('❌ Respuesta del servidor (sin error de red pero sin URL):', data);
+        console.error('❌ Respuesta del servidor:', data);
         Alert.alert('❌', 'Error inesperado del servidor al subir archivo');
       }
     } catch {
-      console.error('❌ El servidor no devolvió JSON. Texto recibido:', text);
-      Alert.alert('❌', 'El servidor devolvió una respuesta no válida (no es JSON)');
+      console.error('❌ El servidor no devolvió JSON:', text);
+      Alert.alert('❌', 'La respuesta del servidor no es válida');
     }
-
   } catch (error) {
-    console.error('❌ Error de red al subir archivo:', error);
+    console.error('❌ Error al subir archivo:', error);
     Alert.alert('❌', 'No se pudo conectar con el servidor');
   }
+
+  setSubiendoArchivo(false); // ✅ finaliza carga
 };
 
 
   const enviarAsesoramiento = async () => {
-  if (!nombre || !correo || !pais || !provincia || !hectareas || !cultivo || !fase || !produccion || !mensaje || !archivoURL) {
-    Alert.alert('❗', 'Rellena todos los campos y sube un archivo');
-    return;
-  }
+    if (!nombre || !correo || !pais || !provincia || !hectareas || !cultivo || !fase || !produccion || !mensaje || !archivoURL) {
+      Alert.alert('❗', 'Rellena todos los campos y sube un archivo');
+      return;
+    }
 
-  setEnviando(true);
-  try {
-    const payload = {
-      nombre,
-      email: correo,
-      pais,
-      provincia,
-      hectareas,
-      cultivo,
-      fase,
-      produccion,
-      mensaje,
-      archivo_url: archivoURL,
-    };
+    if (!validarCorreo(correo)) {
+      Alert.alert('❌', 'Introduce un correo válido');
+      return;
+    }
 
-    const res = await fetch('https://asesoramiento-vellsam.onrender.com/enviar-correo', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
+    if (!validarNombre(nombre)) {
+      Alert.alert('❌', 'El nombre no es válido');
+      return;
+    }
 
-    if (res.ok) {
+    if (!validarHectareas(hectareas)) {
+      Alert.alert('❌', 'Introduce un número válido de hectáreas');
+      return;
+    }
+
+    setEnviando(true);
+    try {
+      const payload = {
+        nombre,
+        email: correo,
+        pais,
+        provincia,
+        hectareas,
+        cultivo,
+        fase,
+        produccion,
+        mensaje,
+        archivo_url: archivoURL,
+      };
+
+      // Enviar correo
+      await fetch('https://asesoramiento-vellsam.onrender.com/enviar-correo', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      // Guardar en Sheety
+      await fetch('https://api.sheety.co/50910ab5d9fcb816bfcd3ad8a1bb2169/datosAsesoramiento/datos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ dato: { ...payload, fecha: new Date().toISOString() } }),
+      });
+
       Alert.alert('✅', 'Solicitud enviada correctamente');
       setNombre('');
       setCorreo('');
@@ -128,17 +162,12 @@ export default function AsesoramientoScreen() {
       setProduccion('');
       setMensaje('');
       setArchivoURL('');
-    } else {
-      const errorText = await res.text();
-      console.error('Error al enviar:', errorText);
+    } catch (err) {
+      console.error('❌ Error al enviar:', err);
       Alert.alert('❌', 'Error al enviar la solicitud');
     }
-  } catch (err) {
-    console.error(err);
-    Alert.alert('❌', 'Error inesperado');
-  }
-  setEnviando(false);
-};
+    setEnviando(false);
+  };
 
   return (
     <ScrollView style={{ backgroundColor: theme.background }} contentContainerStyle={{ padding: 20 }}>
@@ -149,46 +178,96 @@ export default function AsesoramientoScreen() {
       <TextInput style={[styles.input, { backgroundColor: theme.card, color: theme.text }]} value={correo} onChangeText={setCorreo} keyboardType="email-address" />
 
       <Text style={[styles.label, { color: theme.text }]}>{t.countryQuestion}</Text>
-      <Picker selectedValue={pais} onValueChange={(val) => { setPais(val); setProvincia(''); }} style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}>
+      <Picker
+        selectedValue={pais}
+        onValueChange={(val) => { setPais(val); setProvincia(''); setPaisLocked(val !== ''); }}
+        enabled={!paisLocked}
+        style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}
+      >
         <Picker.Item label="--" value="" />
         {countryRegionData.map(p => (
           <Picker.Item key={p.country} label={traducirPais(p.country, language)} value={p.country} />
         ))}
       </Picker>
+      {pais && paisLocked && (
+        <TouchableOpacity onPress={() => setPaisLocked(false)}>
+          <Text style={{ color: '#66aaff' }}>✏️ Editar país</Text>
+        </TouchableOpacity>
+      )}
 
       <Text style={[styles.label, { color: theme.text }]}>{t.regionQuestion}</Text>
-      <Picker selectedValue={provincia} onValueChange={setProvincia} style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}>
+      <Picker
+        selectedValue={provincia}
+        onValueChange={(val) => { setProvincia(val); setProvinciaLocked(val !== ''); }}
+        enabled={!provinciaLocked}
+        style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}
+      >
         <Picker.Item label="--" value="" />
         {regionesDisponibles.map(r => (
           <Picker.Item key={r} label={r} value={r} />
         ))}
       </Picker>
+      {provincia && provinciaLocked && (
+        <TouchableOpacity onPress={() => setProvinciaLocked(false)}>
+          <Text style={{ color: '#66aaff' }}>✏️ Editar provincia</Text>
+        </TouchableOpacity>
+      )}
 
       <Text style={[styles.label, { color: theme.text }]}>{t.hectaresQuestion}</Text>
       <TextInput style={[styles.input, { backgroundColor: theme.card, color: theme.text }]} value={hectareas} onChangeText={setHectareas} keyboardType="decimal-pad" />
 
       <Text style={[styles.label, { color: theme.text }]}>{t.cropQuestion}</Text>
-      <Picker selectedValue={cultivo} onValueChange={setCultivo} style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}>
+      <Picker
+        selectedValue={cultivo}
+        onValueChange={(val) => { setCultivo(val); setCultivoLocked(val !== ''); }}
+        enabled={!cultivoLocked}
+        style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}
+      >
         <Picker.Item label="--" value="" />
         {listaCultivos.map(item => (
           <Picker.Item key={item.value} label={item.label} value={item.value} />
         ))}
       </Picker>
+      {cultivo && cultivoLocked && (
+        <TouchableOpacity onPress={() => setCultivoLocked(false)}>
+          <Text style={{ color: '#66aaff' }}>✏️ Editar cultivo</Text>
+        </TouchableOpacity>
+      )}
 
       <Text style={[styles.label, { color: theme.text }]}>{t.phaseQuestion}</Text>
-      <Picker selectedValue={fase} onValueChange={setFase} style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}>
+      <Picker
+        selectedValue={fase}
+        onValueChange={(val) => { setFase(val); setFaseLocked(val !== ''); }}
+        enabled={!faseLocked}
+        style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}
+      >
         <Picker.Item label="--" value="" />
         {fasesDisponibles.map(key => (
           <Picker.Item key={key} label={t.phaseNames[key]} value={key} />
         ))}
       </Picker>
+      {fase && faseLocked && (
+        <TouchableOpacity onPress={() => setFaseLocked(false)}>
+          <Text style={{ color: '#66aaff' }}>✏️ Editar fase</Text>
+        </TouchableOpacity>
+      )}
 
       <Text style={[styles.label, { color: theme.text }]}>{t.productionType}</Text>
-      <Picker selectedValue={produccion} onValueChange={setProduccion} style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}>
+      <Picker
+        selectedValue={produccion}
+        onValueChange={(val) => { setProduccion(val); setProduccionLocked(val !== ''); }}
+        enabled={!produccionLocked}
+        style={[styles.picker, { backgroundColor: theme.card, color: theme.text }]}
+      >
         <Picker.Item label="--" value="" />
         <Picker.Item label={t.conventional} value="Convencional" />
         <Picker.Item label={t.organic} value="Ecológica" />
       </Picker>
+      {produccion && produccionLocked && (
+        <TouchableOpacity onPress={() => setProduccionLocked(false)}>
+          <Text style={{ color: '#66aaff' }}>✏️ Editar tipo</Text>
+        </TouchableOpacity>
+      )}
 
       <Text style={[styles.label, { color: theme.text }]}>¿Qué ocurre?</Text>
       <TextInput
@@ -205,6 +284,7 @@ export default function AsesoramientoScreen() {
           {archivoURL ? '✅ Archivo subido' : '📎 Subir archivo (imagen o PDF)'}
         </Text>
       </TouchableOpacity>
+        {subiendoArchivo && <ActivityIndicator size="small" color="#FF8800" style={{ marginTop: 10 }} />}
 
       {enviando && <ActivityIndicator size="large" color="#007bff" style={{ marginVertical: 20 }} />}
 
