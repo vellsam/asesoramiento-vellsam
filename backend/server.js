@@ -23,14 +23,20 @@ app.use('/uploads', express.static(uploadDir));
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
-    const sanitized = file.originalname
-  .normalize('NFD') // descompone acentos
-  .replace(/[\u0300-\u036f]/g, '') // elimina los acentos
-  .replace(/\s+/g, '_'); // reemplaza espacios por "_"
+    const baseName = path.parse(file.originalname).name;
+    const ext = path.extname(file.originalname);
 
-    cb(null, Date.now() + '-' + sanitized);
+    const sanitizedName = baseName
+      .normalize('NFD') // descompone letras con tilde
+      .replace(/[\u0300-\u036f]/g, '') // elimina tildes
+      .replace(/\s+/g, '_') // reemplaza espacios
+      .replace(/[^\w\-]/g, ''); // elimina cualquier otro caracter raro
+
+    const finalName = `${Date.now()}-${sanitizedName}${ext}`;
+    cb(null, finalName);
   },
 });
+
 const upload = multer({ storage });
 
 // ✅ Ruta de prueba
