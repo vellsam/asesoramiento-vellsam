@@ -36,13 +36,26 @@ app.get('/', (req, res) => {
 
 // ✅ Ruta de subida de archivos
 app.post('/upload', upload.single('archivo'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).json({ error: 'No se subió ningún archivo' });
-  }
+  try {
+    console.log('🛠️ Subida recibida...');
+    console.log('🧾 req.file:', req.file);
+    console.log('📋 req.body:', req.body);
 
-  const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
-  res.json({ url: fileUrl });
+    if (!req.file) {
+      console.error('❌ No se recibió archivo');
+      return res.status(400).json({ error: 'No se subió ningún archivo' });
+    }
+
+    const fileUrl = `${req.protocol}://${req.get('host')}/uploads/${req.file.filename}`;
+    console.log('✅ Archivo guardado en:', fileUrl);
+    res.json({ url: fileUrl });
+
+  } catch (err) {
+    console.error('💥 Error en /upload:', err);
+    res.status(500).send('Error interno en el servidor');
+  }
 });
+
 
 // ✅ Escuchar en el puerto asignado por Render
 app.listen(PORT, () => {
