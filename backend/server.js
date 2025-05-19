@@ -40,13 +40,17 @@ app.post('/upload', upload.single('archivo'), async (req, res) => {
       return res.status(400).json({ error: 'No se envió ningún archivo' });
     }
 
+    const mime = req.file.mimetype;
+    const isImage = mime.startsWith('image/');
+    const resourceType = isImage ? 'image' : 'raw';
+
     const bufferStream = new Readable();
     bufferStream.push(req.file.buffer);
     bufferStream.push(null);
 
     const uploadResult = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
-        { folder: 'vellsam', resource_type: 'auto' },
+        { folder: 'vellsam', resource_type: resourceType },
         (error, result) => {
           if (error) reject(error);
           else resolve(result);
@@ -61,6 +65,7 @@ app.post('/upload', upload.single('archivo'), async (req, res) => {
     res.status(500).json({ error: 'Error al subir archivo a Cloudinary' });
   }
 });
+
 
 // Envío de correo
 app.post('/enviar-correo', async (req, res) => {
