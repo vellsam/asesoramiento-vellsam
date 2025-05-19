@@ -7,14 +7,8 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Crear carpeta 'uploads' con seguridad
 const uploadDir = path.join(__dirname, 'uploads');
-try {
-  fs.mkdirSync(uploadDir, { recursive: true });
-  console.log('✅ Carpeta /uploads lista');
-} catch (err) {
-  console.error('❌ Error al crear carpeta uploads:', err);
-}
+fs.mkdirSync(uploadDir, { recursive: true });
 
 app.use(cors());
 app.use('/uploads', express.static(uploadDir));
@@ -29,7 +23,6 @@ const storage = multer.diskStorage({
     cb(null, uniqueName);
   },
 });
-
 const upload = multer({ storage });
 
 app.get('/', (req, res) => {
@@ -38,9 +31,8 @@ app.get('/', (req, res) => {
 
 app.post('/upload', upload.single('archivo'), (req, res) => {
   try {
-    console.log('📥 Recibiendo archivo...');
     if (!req.file) {
-      console.error('❌ req.file está vacío');
+      console.error('❌ No se recibió archivo');
       return res.status(400).json({ error: 'No se subió ningún archivo' });
     }
 

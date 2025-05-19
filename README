@@ -1,0 +1,3 @@
+# Upload Server
+
+Servidor Express para recibir archivos y devolver un enlace público usando `multer`.
