@@ -5,6 +5,9 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/HomeScreen';
 import MainApp from './src/MainApp';
 import { LanguageProvider } from './src/context/LanguageContext';
+import ResumenScreen from './src/screens/ResumenScreen';
+import GlosarioScreen from './src/screens/GlosarioScreen';
+import AsesoramientoScreen from './src/screens/AsesoramientoScreen.js'; // ✅ Importación correcta
 
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +27,34 @@ export default function App() {
             options={{
               title: 'Asistente Vellsam',
               headerStyle: { backgroundColor: '#1c4c25' },
-              headerTintColor: '#fff'
+              headerTintColor: '#fff',
+            }}
+          />
+          <Stack.Screen
+            name="Glosario"
+            component={GlosarioScreen}
+            options={{
+              title: 'Glosario',
+              headerStyle: { backgroundColor: '#1c4c25' },
+              headerTintColor: '#fff',
+            }}
+          />
+          <Stack.Screen
+            name="Resumen"
+            component={ResumenScreen}
+            options={{
+              title: 'Resumen',
+              headerStyle: { backgroundColor: '#1c4c25' },
+              headerTintColor: '#fff',
+            }}
+          />
+          <Stack.Screen
+            name="Asesoramiento"
+            component={AsesoramientoScreen}
+            options={{
+              title: 'Asesoramiento',
+              headerStyle: { backgroundColor: '#FF8800' },
+              headerTintColor: '#fff',
             }}
           />
         </Stack.Navigator>

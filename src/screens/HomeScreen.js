@@ -1,4 +1,3 @@
-// src/screens/HomeScreen.js
 import React, { useRef, useEffect } from 'react';
 import {
   View,
@@ -17,6 +16,7 @@ import { strings } from '../strings';
 import { setStaticLanguage } from '../context/staticLanguage';
 
 const { width, height } = Dimensions.get('window');
+const isSmallScreen = height < 650;
 
 export default function HomeScreen({ navigation }) {
   const { language, setLanguage } = useLanguage();
@@ -80,6 +80,9 @@ export default function HomeScreen({ navigation }) {
       navigation.navigate('Asistente');
     });
   };
+const handleAsesoramiento = () => {
+  navigation.navigate('Asesoramiento');
+};
 
   const cambiarIdioma = (lang) => {
     setLanguage(lang);
@@ -111,25 +114,39 @@ export default function HomeScreen({ navigation }) {
           </Animated.View>
 
           <View style={styles.overlay}>
-            <TouchableWithoutFeedback
-              onPressIn={handlePressIn}
-              onPressOut={handlePressOut}
-            >
-              <Animated.View
-                style={[
-                  styles.button,
-                  {
-                    transform: [
-                      { scale: scaleAnim },
-                      { translateY: slideAnim },
-                    ],
-                    opacity: fadeAnim,
-                  },
-                ]}
-              >
-                <Text style={styles.buttonText}>{t.start}</Text>
-              </Animated.View>
-            </TouchableWithoutFeedback>
+            <Text style={styles.slogan}>{t.slogan}</Text>
+
+            {/* Botón asistente con animación */}
+<TouchableWithoutFeedback
+  onPressIn={handlePressIn}
+  onPressOut={handlePressOut}
+>
+  <Animated.View
+    style={[
+      styles.button,
+      {
+        transform: [
+          { scale: scaleAnim },
+          { translateY: slideAnim },
+        ],
+        opacity: fadeAnim,
+      },
+    ]}
+  >
+    <Text style={styles.buttonText}>{t.start}</Text>
+  </Animated.View>
+</TouchableWithoutFeedback>
+
+{/* Botón asesoramiento personalizado */}
+<TouchableOpacity
+  onPress={handleAsesoramiento}
+  style={[styles.button, { backgroundColor: '#FF8800', marginTop: 15 }]}
+>
+  <Text style={styles.buttonText}>
+    📎 {language === 'es' ? 'Asesoramiento personalizado' : 'Custom Support'}
+  </Text>
+</TouchableOpacity>
+
 
             <View style={styles.languageContainer}>
               <TouchableOpacity onPress={() => cambiarIdioma('es')}>
@@ -175,24 +192,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 160,
-    height: 100,
+    width: isSmallScreen ? 120 : 160,
+    height: isSmallScreen ? 80 : 100,
   },
   overlay: {
     width: '100%',
     alignItems: 'center',
-    paddingBottom: 80,
+    paddingBottom: 60,
+  },
+  slogan: {
+     fontSize: isSmallScreen ? 20 : 28,
+  fontWeight: 'bold',
+  color: '#1c4c25',
+  marginBottom: isSmallScreen ? 20 : 30,
+  textAlign: 'center',
+  paddingHorizontal: 20,
+  lineHeight: isSmallScreen ? 26 : 36,
+  textShadowColor: 'rgba(0, 0, 0, 0.2)',
+  textShadowOffset: { width: 1, height: 1 },
+  textShadowRadius: 2,
   },
   button: {
     backgroundColor: '#1c4c25',
-    paddingVertical: 16,
-    paddingHorizontal: 30,
+    paddingVertical: isSmallScreen ? 10 : 16,
+    paddingHorizontal: isSmallScreen ? 20 : 30,
     borderRadius: 30,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
+    marginTop: 10,
   },
   buttonText: {
     color: '#fff',

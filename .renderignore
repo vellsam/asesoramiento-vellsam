@@ -1,0 +1,7 @@
+# Ignorar todo lo que no sea backend
+src/
+node_modules/
+uploads/
+dist/
+.expo/
+assets/

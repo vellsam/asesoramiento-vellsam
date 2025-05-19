@@ -6,10 +6,10 @@
     "orientation": "portrait",
     "icon": "./assets/icono-vellsam.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#FFFBEF"
-    },
+  "image": "./assets/splash.png",
+  "resizeMode": "cover",
+  "backgroundColor": "#1c4c25"
+},
     "updates": {
       "fallbackToCacheTimeout": 0,
       "url": "https://u.expo.dev/42650f3e-5692-4580-b263-d68254b25318"
@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/icono-vellsam.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.repema01.asistentevellsam"
     },
     "web": {
       "favicon": "./assets/icono-vellsam.png"
