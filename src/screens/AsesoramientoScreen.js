@@ -58,7 +58,7 @@ export default function AsesoramientoScreen() {
       type,
     });
 
-    const response = await fetch('https://upload-server-adhv.onrender.com/upload', {
+    const response = await fetch('https://asesoramiento-vellsam.onrender.com/upload', {
       method: 'POST',
       body: formData,
       headers: {
@@ -90,60 +90,55 @@ export default function AsesoramientoScreen() {
 
 
   const enviarAsesoramiento = async () => {
-    if (!nombre || !correo || !pais || !provincia || !hectareas || !cultivo || !fase || !produccion || !mensaje || !archivoURL) {
-      Alert.alert('❗', 'Rellena todos los campos y sube un archivo');
-      return;
+  if (!nombre || !correo || !pais || !provincia || !hectareas || !cultivo || !fase || !produccion || !mensaje || !archivoURL) {
+    Alert.alert('❗', 'Rellena todos los campos y sube un archivo');
+    return;
+  }
+
+  setEnviando(true);
+  try {
+    const payload = {
+      nombre,
+      email: correo,
+      pais,
+      provincia,
+      hectareas,
+      cultivo,
+      fase,
+      produccion,
+      mensaje,
+      archivo_url: archivoURL,
+    };
+
+    const res = await fetch('https://asesoramiento-vellsam.onrender.com/enviar-correo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (res.ok) {
+      Alert.alert('✅', 'Solicitud enviada correctamente');
+      setNombre('');
+      setCorreo('');
+      setPais('');
+      setProvincia('');
+      setHectareas('');
+      setCultivo('');
+      setFase('');
+      setProduccion('');
+      setMensaje('');
+      setArchivoURL('');
+    } else {
+      const errorText = await res.text();
+      console.error('Error al enviar:', errorText);
+      Alert.alert('❌', 'Error al enviar la solicitud');
     }
-
-    setEnviando(true);
-    try {
-      const payload = {
-        service_id: 'service_hh6pkhj',
-        template_id: 'template_bqcvbzm',
-        user_id: 'bi8Pc7GFK1HyfB7nt',
-        template_params: {
-          nombre,
-          email: correo,
-          pais,
-          provincia,
-          hectareas,
-          cultivo,
-          fase,
-          produccion,
-          mensaje,
-          archivo_url: archivoURL,
-        }
-      };
-
-      const res = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (res.ok) {
-        Alert.alert('✅', 'Enviado correctamente');
-        setNombre('');
-        setCorreo('');
-        setPais('');
-        setProvincia('');
-        setHectareas('');
-        setCultivo('');
-        setFase('');
-        setProduccion('');
-        setMensaje('');
-        setArchivoURL('');
-      } else {
-        const errorText = await res.text();
-        console.error('Error al enviar:', errorText);
-        Alert.alert('❌', 'Error al enviar el formulario');
-      }
-    } catch (err) {
-      console.error(err);
-      Alert.alert('❌', 'Error inesperado');
-    }
-    setEnviando(false);
-  };
+  } catch (err) {
+    console.error(err);
+    Alert.alert('❌', 'Error inesperado');
+  }
+  setEnviando(false);
+};
 
   return (
     <ScrollView style={{ backgroundColor: theme.background }} contentContainerStyle={{ padding: 20 }}>
