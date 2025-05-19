@@ -23,7 +23,11 @@ app.use('/uploads', express.static(uploadDir));
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
-    const sanitized = file.originalname.replace(/\s+/g, '_');
+    const sanitized = file.originalname
+  .normalize('NFD') // descompone acentos
+  .replace(/[\u0300-\u036f]/g, '') // elimina los acentos
+  .replace(/\s+/g, '_'); // reemplaza espacios por "_"
+
     cb(null, Date.now() + '-' + sanitized);
   },
 });
