@@ -10,9 +10,8 @@ const PORT = process.env.PORT || 3000;
 // ✅ Crear carpeta 'uploads' si no existe
 const uploadDir = path.join(__dirname, 'uploads');
 if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
+  fs.mkdirSync(uploadDir, { recursive: true });
 }
-
 // ✅ Middleware
 app.use(cors());
 app.use('/uploads', express.static(uploadDir));
